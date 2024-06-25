@@ -2,7 +2,6 @@ import datetime
 import json
 import os
 import sys
-from keys import KEY
 from openai import OpenAI
 import base64
 from pdf2image import convert_from_path
@@ -236,46 +235,4 @@ class ScreenplayPDFToJSON:
         os.rmdir(directory)  # Delete image directory
 
         return data  # Return JSON data
-
-
-
-if __name__ == "__main__":
-    pdf_files = ["/Users/alexiskirke/Dropbox/Contracting/reader/screenplays/drive-2011.pdf",
-                 "/Users/alexiskirke/Dropbox/Contracting/reader/screenplays/The_Lovingkindness_of_the_AI_Torturer_5June_minorcorrections.pdf",
-                 "/Users/alexiskirke/Dropbox/Contracting/reader/screenplays/Severance_1x01_-_Mister.pdf"]
-
-    filename = pdf_files[0]
-
-    sptj = ScreenplayPDFToJson(api_key=KEY)
-    print(f"Estimated cost for {filename}: ${sptj.estimate_conversion_cost(filename):.2f}")
-    sys.exit()
-    data = sptj.convert(filename, end_page=3)
-    print(json.dumps(data, indent=4))
-
-
-    sys.exit()
-    #screenplay_pdf_to_json(filename)
-    # load back in the json and print it out
-    with open(os.path.basename(filename).split('.')[0] + ".json", "r") as f:
-        data = json.load(f)
-        print(json.dumps(data, indent=4))
-
-    # now send it to https://bluefairyshampoo.pythonanywhere.com/add_screenplay as a POST
-    # with the json as a PART of the payload
-    # here is full payload structure:
-    # screenplay_title=data['screenplay_title'],
-    #         author=data['author'],
-    #         screenplay_json=data['screenplay_json']
-    # make sure data is json and not string
-    #import requests
-    data = json.dumps(data)
-    address = "https://bluefairyshampoo.pythonanywhere.com/add_screenplay"
-    payload = {
-        "screenplay_title": "The Lovingkindness of the AI Torturer",
-        "author": "Alexis Kirke",
-        "screenplay_json": data
-    }
-    response = requests.post(address, json=payload)
-    print(response.text)
-
 
