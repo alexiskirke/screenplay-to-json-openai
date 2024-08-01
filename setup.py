@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='screenplay-to-json-openai',
-    version='1.0.0',
+    version='1.0.3',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
@@ -11,8 +11,8 @@ setup(
     author='Alexis Kirke',
     author_email='alexiskirke2@gmail.com',
     description='A tool to a screenplay PDF to JSON format using OpenAI Vision Transformer Analysis.',
-    long_description=open('README.txt').read(),
-    long_description_content_type='text/plain',
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
