@@ -236,3 +236,36 @@ class ScreenplayPDFToJSON:
 
         return data  # Return JSON data
 
+    @staticmethod
+    def format_screenplay_experimental(data):
+        """
+        UNDOCUMENTED EXPERIMENTAL METHOD
+        Format the screenplay json into a screenplay text.
+        Doesn't save result.
+        :param data: screenplay json data
+        :return: screenplay text
+        """
+        screenplay_text = ""
+        num_tabs_character = 6
+        num_tabs_parenthetical = num_tabs_character - 1
+        num_tabs_speech = 4
+        tabs_character = "\t" * num_tabs_character
+        tabs_speech = "\t" * num_tabs_speech
+        tabs_parenthetical = "\t" * num_tabs_parenthetical
+        for item in data:
+            if item["type"] == "scene":
+                screenplay_text += f"{item['content']}\n\n"
+            elif item["type"] == "action":
+                screenplay_text += f"{item['content']}\n\n"
+            elif item["type"] == "dialogue":
+                name = item["name"]
+                modifier = item.get("modifier", "")
+                parenthetical = item.get("parenthetical", "")
+                speech = item["content"]
+                screenplay_text += f"{tabs_character}{name} {modifier}\n"
+                if parenthetical:
+                    screenplay_text += f"{tabs_character}{parenthetical}\n"
+                screenplay_text += f"{tabs_speech}{speech}\n\n"
+
+        return screenplay_text
+
